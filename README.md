@@ -45,3 +45,36 @@ A generally accepted notation for a GARCH model is to specify the GARCH() functi
 - If a correlogram appears to be white noise […], then volatility ca be detected by looking at the correlogram of the squared values since the squared values are equivalent to the variance (provided the series is adjusted to have a mean of zero).
 
 # ARCH and GARCH models in Python:
+
+* Data
+- The simplest case would be a series of random noise where the mean is zero and the variance starts at 0.0 and steadily increases.
+
+- We can achieve this in Python using the gauss() function that generates a Gaussian random number with the specified mean and standard deviation.
+ 
+* Autocorrelation
+
+- We know there is an autocorrelation in the variance of the contrived dataset.
+
+- Nevertheless, we can look at an autocorrelation plot to confirm this expectation.
+
+* ARCH Model
+
+- Developing an ARCH model involves three steps:
+
+   a) Define the model
+   b) Fit the model
+   c) Make a forecast.
+- Before fitting and forecasting, we can split the dataset into a train and test set so that we can fit the model on the train and evaluate its performance on the test set.
+- A model can be defined by calling the arch_model() function. We can specify a model for the mean of the series: in this case mean=’Zero’ is an appropriate model. We can then specify the model for the variance: in this case vol=’ARCH’. We can also specify the lag parameter for the ARCH model: in this case p=15.
+
+- The model can be fit on the data by calling the fit() function. There are many options on this function, although the defaults are good enough for getting started. This will return a fit model.
+
+- Finally, we can make a prediction by calling the forecast() function on the fit model. We can specify the horizon for the forecast.
+
+In this case, we will predict the variance for the last 10 time steps of the dataset, and withhold them from the training of the model. A line plot is created comparing the series of expected variance to the predicted variance. 
+
+* GARCH Model
+
+- We can fit a GARCH model just as easily using the arch library.
+
+- The arch_model() function can specify a GARCH instead of ARCH model vol=’GARCH’ as well as the lag parameters for both.
